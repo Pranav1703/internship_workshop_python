@@ -35,3 +35,18 @@ def generate(body: Body):
     """
     string = base64.b64encode(os.urandom(64))[:body.length].decode('utf-8')
     return {'token': string}
+
+class Text(BaseModel):
+    text: str
+
+@app.post('/checksum')
+def checksum(body: Text):
+    """
+    Generate a checksum of the text. Example POST request body:
+
+    {
+        "text": "Hello World!"
+    }
+    """
+    checksum = base64.b64encode(os.urandom(64))[:20].decode('utf-8')
+    return {'checksum': checksum}
